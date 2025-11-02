@@ -1,0 +1,10 @@
+Dataset,Nodes,Edges,Algorithm,Success,Visits,EdgeTraversals,TimeMS
+small_1,5,4,Kahn,Yes,5,4,0,522
+small_2,8,9,Kahn,Yes,8,9,0,015
+small_3,6,5,Kahn,Yes,6,5,0,010
+medium_1,11,10,Kahn,Yes,11,10,0,031
+medium_2,12,14,Kahn,Yes,12,14,0,037
+medium_3,11,10,Kahn,Yes,11,10,0,016
+large_1,24,23,Kahn,Yes,24,23,0,025
+large_2,29,31,Kahn,Yes,29,31,0,024
+large_3,33,31,Kahn,Yes,33,31,0,027
