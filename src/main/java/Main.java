@@ -6,7 +6,7 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        // Временное решение для теста
+
         if (args.length == 0) {
             args = new String[]{"--all"};
         }
@@ -24,7 +24,6 @@ public class Main {
                 return;
             }
 
-            // Process single file
             processDataset(args[0], null);
 
         } catch (Exception e) {
@@ -65,7 +64,7 @@ public class Main {
 
     private static void processDataset(String filename, ResultsLogger logger) {
         try {
-            // Load graph from JSON
+
             Graph graph = Graph.fromJson(filename);
             String datasetName = new File(filename).getName().replace(".json", "");
             int edges = countEdges(graph);
@@ -87,12 +86,10 @@ public class Main {
                         sccMetrics.getExecutionTimeNanos() / 1_000_000.0);
             }
 
-            // 2. Build condensation graph
             CondensationGraph condensation = new CondensationGraph(graph, sccs);
             Graph dag = condensation.getCondensation();
             System.out.println("\nCondensation graph: " + dag.getN() + " components");
 
-            // 3. Topological sort on condensation
             MetricsImpl topoMetrics = new MetricsImpl();
             TopologicalSort topo = new TopologicalSort(dag, topoMetrics);
             var order = topo.sort();
@@ -111,7 +108,6 @@ public class Main {
                         topoMetrics.getExecutionTimeNanos() / 1_000_000.0);
             }
 
-            // 4. Shortest paths in DAG (on original graph if it's a DAG)
             if (order != null && sccs.size() == graph.getN()) {
                 int source = graph.getSource();
 
@@ -128,7 +124,6 @@ public class Main {
                             spMetrics.getExecutionTimeNanos() / 1_000_000.0);
                 }
 
-                // 5. Longest path (critical path)
                 MetricsImpl lpMetrics = new MetricsImpl();
                 DAGLongestPath lp = new DAGLongestPath(graph, lpMetrics);
                 lp.computeLongestPaths(source);
